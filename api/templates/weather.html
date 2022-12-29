@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mg-0">
+    <div class="card container-fluid w-60 p-3">
+        <div class="card-body">
+            <div class="row">
+                <h4>The current temperature in Vilnius: {{new_data.main.temp }}°C</h4>
+            </div>
+            <div class="row">
+                <p>Get weather details of any city around the world.</p>
+            </div>
+            <br>
+            <div>
+                <form action=" {{ url_for ('weather') }} " method="post">
+                    <div class="form-group">
+                        <label for="city_name">City Name:</label>
+                        <input type="text" id="city_name" name="city_name" value="{{city_name}}"
+                               placeholder="City Name">
+                        <button class="submit">Find</button>
+                        {% if error is defined and error %}
+                        <span class="alert alert-danger">Error: Please enter valid city name.</span>
+                        {% endif %}
+                    </div>
+                    {% if data is defined and data %}
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{ data.sys.country }} {{ city_name }}</td>
+                            <td>Temperature:</td>
+                            <td>{{data.main.temp }} °C</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Pressure</td>
+                            <td>{{data.main.pressure}} hPa</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Humidity</td>
+                            <td>{{data.main.humidity}} Km/h</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+{% endblock %}
