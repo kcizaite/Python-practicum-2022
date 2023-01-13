@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mg-0">
+    <div class="card container-fluid w-60 p-3">
+        <div class="card-body">
+            <div class="row">
+                <h4>Geographic coordinates of Vilnius: Latitude: {{coord_lat}}; Longitude {{coord_lon}}</h4>
+            </div>
+            <br>
+            <div class="row">
+                <p>Get information about the location of any city in the world, its temperature,
+                    at any historical time</p>
+            </div>
+            <br>
+            <div class="container">
+                <form action=" {{ url_for ('weather_history') }} " method="post">
+                    <div class="form-group ">
+                        <div class="container text-center align-items-center">
+                            <div class="row row-cols-4">
+                                <div class="col">
+                                    <label for="city_name">City Name:</label>
+                                    <input class="form-control" type="text" id="city_name" name="city_name"
+                                           value="{{city_name}}"
+                                           placeholder="Vilnius" required>
+                                </div>
+                                <div class="col">
+                                    <label for="date_start">Start date:</label>
+                                    <input class="form-control" type="text" id="date_start" name="date_start"
+                                           value="{{date_start}}"
+                                           placeholder="2023-01-01" required>
+                                </div>
+                                <div class="col">
+                                    <label for="date_end">End date:</label>
+                                    <input class="form-control" type="text" id="date_end" name="date_end"
+                                           value="{{date_end}}"
+                                           placeholder="2023-01-31" required>
+                                </div>
+                                <div class="col" style="padding: 20px">
+                                    <button class="submit btn btn-primary"
+                                            style="padding-right:50px; padding-left:50px">Find
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if geo_data is defined and geo_data %}
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{ country }} {{ city_name }}</td>
+                            <td>Latitude:</td>
+                            <td>{{geo_data_lat}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Longitude</td>
+                            <td>{{geo_data_lon}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <h3>The average temperature in {{country}} {{city_name}} between {{date_start}} and
+                            {{date_end}}
+                            is {{average_temp}} °C</h3>
+                    </div>
+                    <div>
+                        <img src="data:image/png;base64, {{ plot_url }}" height="100%" width="100%" alt="Chart">
+                    </div>
+                    <br>
+                    <br>
+                    {% endif %}
+                </form>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Download the excel file</h4>
+                            <a class="btn btn-success" style="padding-right:50px; padding-left:50px"
+                               href="{{url_for('download_excel')}}">Download</a>
+                        </div>
+                        <div class="col">
+                            <h4>Download the PDF file</h4>
+                            <a class="btn btn-success" style="padding-right:50px; padding-left:50px"
+                               href="{{url_for('download_pdf')}}">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% endblock %}

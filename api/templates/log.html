@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="text-align: center;">
+    <h1>Last 5 search:</h1>
+    {% for line in head %}
+    <li style="background-color:powderblue; font-size:160%; ">{{line}}</li>
+    {% endfor %}
+    <br>
+    <br>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mg-0">
+    <div class="card container-fluid w-60 p-3">
+        <div class="card-body">
+            <div class="row">
+                <h2>List of cities and weather</h2>
+            </div>
+            <br>
+            <div class="row">
+                <form method="POST" action="/cities">
+                    <div class="input-group" style="width: 50%;">
+                        <h5 style="padding-right: 10px; padding-top: 5px;">Add city: </h5>
+                        <input type="text" name="city_name" class="form-control" placeholder="City name"
+                               aria-label="Recipient's username"
+                               aria-describedby="button-addon2">
+                        <input class="btn btn-outline-secondary" type="submit" value="Add"/>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <br>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <h3>List of cities</h3>
+                        <br>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    City name:
+                                </td>
+                                <td>
+                                    Temperature °C:
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            {% for city in cities %}
+                            <tr>
+                                <td>
+                                    <p>{{city.city_name}}</p>
+                                </td>
+                                <td>
+                                    {{weather_data}}
+                                </td>
+                                <td>
+                                    <form method="POST" action="./update" style="display: inline">
+                                        <input type="hidden" value="{{city.city_name}}" name="old_name">
+                                        <input type="text" value="{{city.city_name}}" name="new_name">
+                                        <input type="submit" value="Update">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="POST" action="./delete" style="display: inline">
+                                        <input type="hidden" value="{{city.city_name}}" name="city_name">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% endblock %}

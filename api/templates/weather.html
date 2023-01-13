@@ -15,11 +15,10 @@
                     <div class="form-group">
                         <label for="city_name">City Name:</label>
                         <input type="text" id="city_name" name="city_name" value="{{city_name}}"
-                               placeholder="City Name">
-                        <button class="submit">Find</button>
-                        {% if error is defined and error %}
-                        <span class="alert alert-danger">Error: Please enter valid city name.</span>
-                        {% endif %}
+                               placeholder="City Name" required>
+                        <button class="submit btn btn-primary" style="margin-left:10px;
+                        padding-right:20px; padding-left:20px">Find
+                        </button>
                     </div>
                     {% if data is defined and data %}
                     <table class="table table-bordered">
